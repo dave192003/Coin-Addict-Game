@@ -9,7 +9,7 @@ public class MapGrid extends JFrame {
     private final int rows = 20;
     private final int columns = 20;
     private final Cell[][] grid = new Cell[rows][columns];
-    private final WallCell[][] wallgrid = new WallCell[rows][columns];
+    private final LavaCell[][] wallgrid = new LavaCell[rows][columns];
     private int totalNonWallCells = 0;
     private int visitedCells = 0;
     private Cell cell = new Cell(0, 0);
@@ -31,7 +31,7 @@ public class MapGrid extends JFrame {
 
                 if (makeWall) {
                     // create wall
-                    WallCell wallCell = new WallCell(r, c);
+                    LavaCell wallCell = new LavaCell(r, c);
                     wallgrid[r][c] = wallCell;
                     wallCell.setOpaque(true);
                     mazePanel.add(wallCell);

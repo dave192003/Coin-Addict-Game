@@ -2,11 +2,11 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class WallCell extends JPanel {
+public class LavaCell extends JPanel {
 
     private final Image wallImage;
 
-    public WallCell(int row, int col) {
+    public LavaCell(int row, int col) {
         java.net.URL imageUrl = getClass().getResource("/image/Lava.png");
         if (imageUrl == null) {
             System.out.println("Could not find: /image/Lava.png");

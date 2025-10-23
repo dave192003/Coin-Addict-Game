@@ -16,7 +16,7 @@ class Cell extends JPanel {
     private Image rockWithCoinImage;
 
     public Cell(int row, int column) {
-        java.net.URL imageURL = getClass().getResource("/Image/coin.png");
+        java.net.URL imageURL = getClass().getResource("/Image/coin.gif");
         if (imageURL == null) {
             System.out.println("Could not find: /image/Lava.png");
             rockWithCoinImage = null;
