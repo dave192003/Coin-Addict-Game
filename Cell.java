@@ -62,6 +62,14 @@ class Cell extends JPanel {
         return row + column;
     }
 
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
     public void setImageURL(URL imageURL) {
         URL newImageURL = imageURL;
         Image rockImage = new ImageIcon(newImageURL).getImage();
