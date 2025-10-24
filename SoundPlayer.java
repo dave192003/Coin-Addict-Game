@@ -9,14 +9,21 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundPlayer {
 
+    private static Clip Offclip;
+
     public static void playSound(String soundFile) {
         try {
-            File soundPath = new File(soundFile);
+            File soundPath = new File(soundFile
+            );
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundPath);
+            Clip mainClip = AudioSystem.getClip();
 
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
+            mainClip.open(audioStream);
+            mainClip.start();
+
+            if (soundFile.equals("sounds/gameMusic.wav")) {
+                Offclip = mainClip;
+            }
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
@@ -25,17 +32,33 @@ public class SoundPlayer {
 
     }
 
-    public static void loopSound(String soundFile) {
+    public static void loopSound(String loopSoundFile) {
         try {
-            File soundPath = new File(soundFile);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundPath);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            File loopSoundPath = new File(loopSoundFile);
+            AudioInputStream loopAudioStream = AudioSystem.getAudioInputStream(loopSoundPath);
+            Clip loopclip = AudioSystem.getClip();
+            loopclip.open(loopAudioStream);
+            loopclip.start();
+            loopclip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            if (loopSoundFile.equals("sounds/gameMusic.wav")) {
+                Offclip = loopclip;
+            }
         } catch (Exception e) {
         }
+    }
 
+    public static void offSound() {
+        try {
+
+            getOffClip().stop();
+
+        } catch (Exception e) {
+        }
+    }
+
+    public static Clip getOffClip() {
+        return Offclip;
     }
 
 }
