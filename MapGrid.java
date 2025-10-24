@@ -42,7 +42,7 @@ public class MapGrid extends JFrame {
 
                 //testing
                 if (r + c == 0) {
-                    CharacterPanel character = new CharacterPanel();
+                    CharacterPanel character = new CharacterPanel("image/Male_wait.gif");
                     character.setBounds(-20, -20, 80, 70);
                     layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
                     Cell startCell = new Cell(r, c);

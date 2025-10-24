@@ -9,8 +9,8 @@ public class CharacterPanel extends JPanel {
 
     private Image characterGIF;
 
-    public CharacterPanel() {
-        java.net.URL maleGIF = getClass().getResource("/image/Male_run.gif");
+    public CharacterPanel(String gifPath) {
+        java.net.URL maleGIF = getClass().getResource(gifPath);
         if (maleGIF == null) {
             System.out.println("Cannot find GIF file ");
             characterGIF = null;
