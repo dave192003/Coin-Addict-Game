@@ -25,4 +25,17 @@ public class SoundPlayer {
 
     }
 
+    public static void loopSound(String soundFile) {
+        try {
+            File soundPath = new File(soundFile);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundPath);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+        }
+
+    }
+
 }
