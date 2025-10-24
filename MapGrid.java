@@ -46,8 +46,9 @@ public class MapGrid extends JFrame {
                     character.setBounds(-20, -20, 80, 70);
                     layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
                     Cell startCell = new Cell(r, c);
-
-                    continue;
+                    java.net.URL imageURL = getClass().getResource("Image/rock.png");
+                    startCell.setImageURL(imageURL);
+                    mazePanel.add(startCell);
 
                 }
 
@@ -60,6 +61,7 @@ public class MapGrid extends JFrame {
                     wallCell.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseEntered(MouseEvent e) {
+                            SoundPlayer.offSound();
                             SoundPlayer.playSound("sounds/arayko.wav");
                             JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
                             System.exit(0);
@@ -85,7 +87,7 @@ public class MapGrid extends JFrame {
                             if (cell.isWall()) {
 
                                 JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
-                                System.exit(0);
+
                             } else {
                                 if (!cell.isVisited()) {
                                     java.net.URL imageURL = getClass().getResource("Image/rock.png");
