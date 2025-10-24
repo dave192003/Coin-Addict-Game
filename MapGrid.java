@@ -19,15 +19,17 @@ public class MapGrid extends JFrame {
         setSize(700, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setFocusable(true);
 
         JPanel mazePanel = new JPanel(new GridLayout(rows, columns));
         mazePanel.setOpaque(true);
         Random rand = new Random();
+
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
 
                 int random = rand.nextInt(200);
-                boolean makeWall = random < 28;
+                boolean makeWall = random < 50;
 
                 if (makeWall) {
                     // create wall
@@ -38,6 +40,8 @@ public class MapGrid extends JFrame {
                     wallCell.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseEntered(MouseEvent e) {
+                            SoundPlayer.playSound("sounds/gameOver.java");
+                            SoundPlayer.playSound("sounds/arayko.wav");
                             JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
                             System.exit(0);
 
@@ -54,16 +58,20 @@ public class MapGrid extends JFrame {
                     totalNonWallCells++;
 
                     // mouse hover event
-                    cell.addMouseListener(new MouseAdapter() {
+                    cell.addMouseListener(
+                            new MouseAdapter() {
                         @Override
-                        public void mouseEntered(MouseEvent e) {
+                        public void mouseEntered(MouseEvent e
+                        ) {
                             if (cell.isWall()) {
+
                                 JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
                                 System.exit(0);
                             } else {
                                 if (!cell.isVisited()) {
                                     java.net.URL imageURL = getClass().getResource("Image/rock.png");
                                     cell.setImageURL(imageURL);
+                                    SoundPlayer.playSound("sounds/coins.wav");
 
                                     cell.setVisited(true);
                                     visitedCells++;
@@ -71,7 +79,8 @@ public class MapGrid extends JFrame {
                                 }
                             }
                         }
-                    });
+                    }
+                    );
 
                     mazePanel.add(cell);
                 }
