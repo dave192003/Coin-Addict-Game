@@ -16,20 +16,40 @@ public class MapGrid extends JFrame {
 
     public MapGrid() {
         setTitle("Maze Game");
-        setSize(700, 700);
+        setSize(715, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setFocusable(true);
 
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(700, 700));
+
         JPanel mazePanel = new JPanel(new GridLayout(rows, columns));
-        mazePanel.setOpaque(true);
+        mazePanel.setBounds(0, 0, 700, 700);
+        mazePanel.setOpaque(false);
+
+        layeredPane.add(mazePanel, JLayeredPane.DEFAULT_LAYER);
         Random rand = new Random();
+
+        //background sound 
+        SoundPlayer.loopSound("sounds/gameMusic.wav");
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
 
                 int random = rand.nextInt(200);
                 boolean makeWall = random < 50;
+
+                //testing
+                if (r + c == 0) {
+                    CharacterPanel character = new CharacterPanel();
+                    character.setBounds(-20, -20, 80, 70);
+                    layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
+                    Cell startCell = new Cell(r, c);
+
+                    continue;
+
+                }
 
                 if (makeWall) {
                     // create wall
@@ -40,7 +60,6 @@ public class MapGrid extends JFrame {
                     wallCell.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseEntered(MouseEvent e) {
-                            SoundPlayer.playSound("sounds/gameOver.java");
                             SoundPlayer.playSound("sounds/arayko.wav");
                             JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
                             System.exit(0);
@@ -97,7 +116,7 @@ public class MapGrid extends JFrame {
             }
         }
 
-        add(mazePanel);
+        add(layeredPane);
         setVisible(true);
     }
 
