@@ -34,7 +34,7 @@ public class MapGrid extends JFrame {
         Random rand = new Random();
 
         // Background sound
-        SoundPlayer.loopSound("sounds/gameMusic.wav");
+        SoundPlayer.loopSound("sounds/newGameMusic.wav");
 
         // Fill grid
         for (int r = 0; r < rows; r++) {
@@ -99,6 +99,7 @@ public class MapGrid extends JFrame {
                 }
 
                 if (wallgrid[newRow][newCol] != null) {
+                    SoundPlayer.offSound();
                     SoundPlayer.playSound("sounds/arayko.wav");
                     JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
                     System.exit(0);

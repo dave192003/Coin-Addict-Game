@@ -21,7 +21,7 @@ public class SoundPlayer {
             mainClip.open(audioStream);
             mainClip.start();
 
-            if (soundFile.equals("sounds/gameMusic.wav")) {
+            if (soundFile.equals("sounds/newGameMusic.wav")) {
                 Offclip = mainClip;
             }
 
@@ -41,7 +41,7 @@ public class SoundPlayer {
             loopclip.start();
             loopclip.loop(Clip.LOOP_CONTINUOUSLY);
 
-            if (loopSoundFile.equals("sounds/gameMusic.wav")) {
+            if (loopSoundFile.equals("sounds/newGameMusic.wav")) {
                 Offclip = loopclip;
             }
         } catch (Exception e) {

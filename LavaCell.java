@@ -7,9 +7,9 @@ public class LavaCell extends JPanel {
     private final Image wallImage;
 
     public LavaCell(int row, int col) {
-        java.net.URL imageUrl = getClass().getResource("/image/Lava.png");
+        java.net.URL imageUrl = getClass().getResource("/image/lavaGIF.gif");
         if (imageUrl == null) {
-            System.out.println("Could not find: /image/Lava.png");
+            System.out.println("Could not find: /image/lavaGIF.gif");
             wallImage = null;
         } else {
             wallImage = new ImageIcon(imageUrl).getImage();
