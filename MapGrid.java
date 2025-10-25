@@ -68,7 +68,7 @@ public class MapGrid extends JFrame {
         }
 
         // Character
-        CharacterPanel character = new CharacterPanel("image/Male_wait.gif", 0, 0);
+        CharacterPanel character = new CharacterPanel("image/Male_run.gif", 0, 0);
         character.setBounds(0, 0, 35, 35);
         character.setFocusable(true);
         layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
