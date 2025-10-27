@@ -10,7 +10,7 @@ public class CharacterPanel extends JPanel {
     private Image characterGIF;
     private int row, column;
 
-    public CharacterPanel(String gifPath, int row, int column) {
+    public CharacterPanel(String gifPath) {
         java.net.URL maleGIF = getClass().getResource(gifPath);
         if (maleGIF == null) {
             System.out.println("Cannot find GIF file ");
@@ -19,9 +19,6 @@ public class CharacterPanel extends JPanel {
 
             characterGIF = new ImageIcon(maleGIF).getImage();
         }
-
-        this.row = row;
-        this.column = column;
 
         setOpaque(false);
         setBackground(new Color(0, 0, 0, 0));

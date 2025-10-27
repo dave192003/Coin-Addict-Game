@@ -17,7 +17,7 @@ public class LavaCell extends JPanel {
         }
         setOpaque(true);
         setBackground(Color.BLACK);
-        setPreferredSize(new Dimension(40, 40));
+        setPreferredSize(new Dimension(50, 50));
 
     }
 
