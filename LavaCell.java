@@ -31,4 +31,8 @@ public class LavaCell extends JPanel {
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
+
+    public boolean setWalkable(boolean isWalkable) {
+        return true;
+    }
 }

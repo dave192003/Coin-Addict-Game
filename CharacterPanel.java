@@ -41,4 +41,9 @@ public class CharacterPanel extends JPanel {
         return column;
     }
 
+    public void setCharacterGIFMode(String gifPath) {
+        this.characterGIF = new ImageIcon(gifPath).getImage();
+
+    }
+
 }

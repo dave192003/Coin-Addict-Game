@@ -10,13 +10,15 @@ public class MapGrid extends JFrame {
     private final int rows = 15;
     private final int columns = 15;
     private final Cell[][] grid = new Cell[rows][columns];
-    private final LavaCell[][] wallgrid = new LavaCell[rows][columns];
+    private LavaCell[][] wallgrid = new LavaCell[rows][columns];
     private final Cell lavaShoesGrid[][] = new Cell[rows][columns];
     private int totalNonWallCells = 0;
     private int visitedCells = 0;
 
     private int characterRow = 1;
     private int characterCol = 1;
+
+    boolean walkableLava;
 
     public MapGrid() {
         setTitle("Coin");
@@ -125,10 +127,10 @@ public class MapGrid extends JFrame {
 
                 // Lava or walkable cell
                 if (makeWall) {
-                    LavaCell wallCell = new LavaCell(r, c);
-                    wallgrid[r][c] = wallCell;
-                    wallCell.setOpaque(true);
-                    mazePanel.add(wallCell);
+                    wallgrid[r][c] = new LavaCell(r, c);
+                    wallgrid[r][c].setWalkable(false);
+                    wallgrid[r][c].setOpaque(true);
+                    mazePanel.add(wallgrid[r][c]);
                 } else {
                     Cell cell = new Cell(r, c);
                     grid[r][c] = cell;
@@ -141,7 +143,7 @@ public class MapGrid extends JFrame {
         }
 
         // Character setup
-        CharacterPanel character = new CharacterPanel("image/Male_run.gif");
+        CharacterPanel character = new CharacterPanel("image/Male_wait.gif");
         character.setBounds(45, 47, 55, 55);
         character.setFocusable(true);
         layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
@@ -160,8 +162,10 @@ public class MapGrid extends JFrame {
                         newRow++;
                     case KeyEvent.VK_LEFT ->
                         newCol--;
-                    case KeyEvent.VK_RIGHT ->
+                    case KeyEvent.VK_RIGHT -> {
                         newCol++;
+                        character.setCharacterGIFMode("image/Male_run.gif");
+                    }
                     default -> {
                         return;
                     }
@@ -170,31 +174,6 @@ public class MapGrid extends JFrame {
                 if (newRow < 0 || newRow >= rows || newCol < 0 || newCol >= columns) {
                     return;
                 }
-                boolean isWalkable = false;
-                if (lavaShoesGrid[newRow][newCol] != null) {
-                    isWalkable = wallgrid[newRow][newCol] != null;
-
-                    URL lavaNewImageURL = getClass().getResource("/image/rock.png");
-                    lavaShoesGrid[newRow][newCol].setImageURL(lavaNewImageURL);
-                    SoundPlayer.playSound("sounds/gotLavaShoes.wav");
-
-                }
-
-                // Check for lava cell
-                if (isWalkable) {
-
-                    SoundPlayer.offSound(); // stops background
-                    SoundPlayer.playSound("sounds/arayko.wav");
-                    JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
-                    System.exit(0);
-                }
-
-                // Move character with proper scaling
-                int cellWidth = 730 / columns;
-                int cellHeight = 749 / rows;
-                characterRow = newRow;
-                characterCol = newCol;
-                character.setLocation(characterCol * cellWidth, characterRow * cellHeight);
 
                 // Collect coins
                 if (grid[newRow][newCol] != null && !grid[newRow][newCol].isVisited()) {
@@ -204,6 +183,30 @@ public class MapGrid extends JFrame {
                     grid[newRow][newCol].setVisited(true);
                     visitedCells++;
                     checkWinCondition();
+                }
+
+                //checks for lava shoes and set lava cells into walkable
+                if (lavaShoesGrid[newRow][newCol] != null) {
+                    walkableLava = true;
+                    URL lavaNewImageURL = getClass().getResource("/image/rock.png");
+                    lavaShoesGrid[newRow][newCol].setImageURL(lavaNewImageURL);
+                    SoundPlayer.playSound("sounds/gotLavaShoes.wav");
+
+                }
+
+                // Move character with proper scaling
+                int cellWidth = 730 / columns;
+                int cellHeight = 749 / rows;
+                characterRow = newRow;
+                characterCol = newCol;
+                character.setLocation(characterCol * cellWidth, characterRow * cellHeight);
+
+                //checks for lava cells
+                if (wallgrid[newRow][newCol] != null && walkableLava != true) {
+                    SoundPlayer.offSound(); // stops background
+                    SoundPlayer.playSound("sounds/arayko.wav");
+                    JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
+                    System.exit(0);
                 }
 
             }
