@@ -14,6 +14,7 @@ public class MapGrid extends JFrame {
     private final Cell lavaShoesGrid[][] = new Cell[rows][columns];
     private int totalNonWallCells = 0;
     private int visitedCells = 0;
+    private GameTimer gameTimer = new GameTimer();
 
     private int characterRow = 1;
     private int characterCol = 1;
@@ -148,6 +149,13 @@ public class MapGrid extends JFrame {
         character.setFocusable(true);
         layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
 
+        //Timer
+        gameTimer.setBounds(320, 15, 80, 30);
+        gameTimer.makeTimer(1000);
+        gameTimer.startTimer();
+
+        layeredPane.add(gameTimer, JLayeredPane.PALETTE_LAYER);
+
         // Keyboard movement
         character.addKeyListener(new KeyAdapter() {
             @Override
@@ -167,7 +175,8 @@ public class MapGrid extends JFrame {
                         character.setCharacterGIFMode("image/Male_run.gif");
                     }
                     default -> {
-                        return;
+                        character.setCharacterGIFMode("image/Male_wait.gif");
+
                     }
                 }
 
@@ -188,6 +197,7 @@ public class MapGrid extends JFrame {
                 //checks for lava shoes and set lava cells into walkable
                 if (lavaShoesGrid[newRow][newCol] != null) {
                     walkableLava = true;
+                    gameTimer.addTime(10);
                     URL lavaNewImageURL = getClass().getResource("/image/rock.png");
                     lavaShoesGrid[newRow][newCol].setImageURL(lavaNewImageURL);
                     SoundPlayer.playSound("sounds/gotLavaShoes.wav");
@@ -204,6 +214,8 @@ public class MapGrid extends JFrame {
                 //checks for lava cells
                 if (wallgrid[newRow][newCol] != null && walkableLava != true) {
                     SoundPlayer.offSound(); // stops background
+                    character.setCharacterGIFMode("image/Falls.gif");
+                    SoundPlayer.playSound("sounds/fallIntoLava.wav");
                     SoundPlayer.playSound("sounds/arayko.wav");
                     JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
                     System.exit(0);
