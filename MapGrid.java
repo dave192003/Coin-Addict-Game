@@ -15,6 +15,7 @@ public class MapGrid extends JFrame {
     private int totalNonWallCells = 0;
     private int visitedCells = 0;
     private GameTimer gameTimer = new GameTimer();
+    private ResultScreen resultsScreen = new ResultScreen();
 
     private int characterRow = 1;
     private int characterCol = 1;
@@ -150,7 +151,8 @@ public class MapGrid extends JFrame {
         layeredPane.add(character, JLayeredPane.PALETTE_LAYER);
 
         //Timer
-        gameTimer.setBounds(320, 15, 80, 30);
+        gameTimer.setBounds(305, 10, 150, 40);
+        gameTimer.setBackgroundImage("/image/clock.png");
         gameTimer.makeTimer(1000);
         gameTimer.startTimer();
 
@@ -216,9 +218,31 @@ public class MapGrid extends JFrame {
                     SoundPlayer.offSound(); // stops background
                     character.setCharacterGIFMode("image/Falls.gif");
                     SoundPlayer.playSound("sounds/fallIntoLava.wav");
-                    SoundPlayer.playSound("sounds/arayko.wav");
-                    JOptionPane.showMessageDialog(null, "You fell into lava :(   Game Over.");
-                    System.exit(0);
+                    gameTimer.stopTimer();
+
+                    //Timer to pop up this results screen
+                    Timer countDown = new Timer(1000, null);
+                    countDown.addActionListener(new ActionListener() {
+                        int timeLeft = 3;//initialized time left to decrement
+
+                        @Override
+                        public void actionPerformed(ActionEvent e
+                        ) {
+                            timeLeft--;
+                            if (timeLeft == 0) {
+                                countDown.stop();
+                                SoundPlayer.playSound("sounds/arayko.wav");
+                                resultsScreen.setImageURL("image/gameOver.gif");
+                                resultsScreen.setImageCenter(layeredPane.getWidth(), layeredPane.getHeight(), resultsScreen.getWidth(), resultsScreen.getHeight());
+                                layeredPane.add(resultsScreen, JLayeredPane.POPUP_LAYER);
+                            }
+
+                        }
+
+                    }
+                    );
+                    countDown.start();
+
                 }
 
             }

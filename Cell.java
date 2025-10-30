@@ -22,7 +22,7 @@ class Cell extends JPanel {
             rockWithCoinImage = null;
         } else {
             rockWithCoinImage = new ImageIcon(imageURL).getImage();
-            System.out.println(" Wall image loaded: " + imageURL);
+
         }
 
         this.row = row;

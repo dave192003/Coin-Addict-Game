@@ -13,7 +13,7 @@ public class LavaCell extends JPanel {
             wallImage = null;
         } else {
             wallImage = new ImageIcon(imageUrl).getImage();
-            System.out.println("Wall image loaded: " + imageUrl);
+
         }
         setOpaque(true);
         setBackground(Color.BLACK);

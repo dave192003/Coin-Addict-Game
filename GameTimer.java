@@ -1,6 +1,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.net.URL;
 import javax.swing.*;
 
 public class GameTimer extends JPanel {
@@ -9,14 +10,20 @@ public class GameTimer extends JPanel {
     private int timeLeft = 30;
     private Timer timer;
     private boolean isCountingUpTimer;
+    private Image image;
 
     public GameTimer() {
 
         setLayout(new FlowLayout());
-
+        setOpaque(false);
+        setBackground(new Color(0, 0, 0, 0));
         timerLabel = new JLabel("Time: 0 s");
-        timerLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        timerLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        timerLabel.setForeground(Color.WHITE);
+        timerLabel.setOpaque(false);
+        timerLabel.setBackground(new Color(0, 0, 0, 0));
         add(timerLabel);
+
         setVisible(true);
     }
 
@@ -77,6 +84,27 @@ public class GameTimer extends JPanel {
             });
 
         }
+    }
+
+    //set background image
+    public void setBackgroundImage(String filename) {
+        URL bgPath = getClass().getResource(filename);
+        if (bgPath == null) {
+            System.out.println("Cannot find the image " + filename);
+            image = null;
+
+        } else {
+            ImageIcon icon = new ImageIcon(bgPath);
+            image = new ImageIcon(bgPath).getImage();
+
+        }
+
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
     }
 
 }
