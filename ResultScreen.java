@@ -22,7 +22,7 @@ public class ResultScreen extends JPanel {
         setOpaque(true);
 
         //Retry button
-        retryButton.setButtonSizeAndLocation(220, 440, 200, 60);
+        retryButton.setButtonSizeAndLocation(260, 480, 200, 60);
         retryButton.setBackgroundButton("/image/Retry (2).png");
         add(retryButton);
 
@@ -31,8 +31,8 @@ public class ResultScreen extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                MapGrid newMapGrid = new MapGrid();
 
-                throw new UnsupportedOperationException("Not supported yet.");
             }
         });
 

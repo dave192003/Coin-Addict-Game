@@ -55,7 +55,7 @@ public class GameTimer extends JPanel {
         timeLeft += addedTime;
     }
 
-    public void setTime(int delayInMillis, int endTime, boolean isCountingUpTimer) {
+    public boolean setTime(int delayInMillis, int endTime, boolean isCountingUpTimer) {
         if (isCountingUpTimer == true) {
             timer = new Timer(delayInMillis, new ActionListener() {
                 @Override
@@ -65,10 +65,13 @@ public class GameTimer extends JPanel {
 
                     if (timeLeft == endTime) {
                         timer.stop();
+
                         System.exit(0);
                     }
                 }
+
             });
+            return true;
 
         } else {
             timer = new Timer(delayInMillis, new ActionListener() {
@@ -78,12 +81,14 @@ public class GameTimer extends JPanel {
                     timerLabel.setText("Time: " + timeLeft + " s");
 
                     if (timeLeft <= 0) {
+
                         timer.stop();
                     }
                 }
             });
 
         }
+        return false;
     }
 
     //set background image

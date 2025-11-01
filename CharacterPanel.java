@@ -42,7 +42,16 @@ public class CharacterPanel extends JPanel {
     }
 
     public void setCharacterGIFMode(String gifPath) {
-        this.characterGIF = new ImageIcon(gifPath).getImage();
+
+        GameTimer changeMode = new GameTimer();
+        boolean toChange = changeMode.setTime(1000, 1000, false);
+        System.out.println("The redult is " + toChange);
+        if (toChange == false) {
+            this.characterGIF = new ImageIcon(gifPath).getImage();
+
+        } else {
+            this.characterGIF = new ImageIcon("image/Male_idle.gif").getImage();
+        }
 
     }
 

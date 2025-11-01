@@ -170,14 +170,17 @@ public class MapGrid extends JFrame {
                         newRow--;
                     case KeyEvent.VK_DOWN ->
                         newRow++;
-                    case KeyEvent.VK_LEFT ->
+                    case KeyEvent.VK_LEFT -> {
                         newCol--;
+                        character.setCharacterGIFMode("image/runleft.gif");
+                    }
                     case KeyEvent.VK_RIGHT -> {
                         newCol++;
                         character.setCharacterGIFMode("image/Male_run.gif");
+
                     }
                     default -> {
-                        character.setCharacterGIFMode("image/Male_wait.gif");
+                        character.setCharacterGIFMode("image/Male_idle.gif");
 
                     }
                 }
@@ -236,9 +239,7 @@ public class MapGrid extends JFrame {
                                 resultsScreen.setImageCenter(layeredPane.getWidth(), layeredPane.getHeight(), resultsScreen.getWidth(), resultsScreen.getHeight());
                                 layeredPane.add(resultsScreen, JLayeredPane.POPUP_LAYER);
                             }
-
                         }
-
                     }
                     );
                     countDown.start();
